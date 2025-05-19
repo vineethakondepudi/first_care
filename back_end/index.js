@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const registrationRoute = require('./routing/router');
+const cors = require("cors");
+app.use(cors());
 
 // Import MongoDB connection
 require('./db/server');
