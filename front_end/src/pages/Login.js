@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Input, Button, Typography, Row, Col, message } from 'antd';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
@@ -8,9 +8,8 @@ const { Title } = Typography;
 const Login = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [otpStep, setOtpStep] = useState(false);
 
-  const handleInitialLogin = async (values) => {
+  const handleLogin = async (values) => {
     try {
       const response = await fetch('https://first-care.onrender.com/login', {
         method: 'POST',
@@ -23,67 +22,15 @@ const Login = () => {
 
       const data = await response.json();
       if (response.ok) {
-        message.success('User verified. Sending OTP...');
-        await sendOtp(values.aadhar, values.mobile);
+        message.success('Login successful!');
         localStorage.setItem('loggedInUser', JSON.stringify(data.user));
-        setOtpStep(true);
+        navigate('/home');
       } else {
         message.error(data.message || 'Invalid Aadhaar or mobile number');
       }
     } catch (err) {
       console.error('Login error:', err);
       message.error('Login failed. Please try again.');
-    }
-  };
-
-  const sendOtp = async (aadhar, phone) => {
-    try {
-      const response = await fetch('https://first-care.onrender.com/send-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ aadharNumber: aadhar, phone }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        message.success(data.message);
-      } else {
-        message.error(data.message || 'Failed to send OTP');
-      }
-    } catch (err) {
-      message.error('Network error while sending OTP');
-    }
-  };
-
-  const verifyOtp = async (values) => {
-    try {
-      const response = await fetch('https://first-care.onrender.com/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          phone: values.mobile,
-          otp: values.otp,
-        }),
-      });
-  
-      const data = await response.json();
-      if (response.ok) {
-        message.success('OTP Verified. Login successful!');
-        navigate('/home');
-      } else {
-        message.error(data.message || 'OTP verification failed');
-      }
-    } catch (err) {
-      message.error('Error verifying OTP');
-    }
-  };
-  
-
-  const onFinish = async (values) => {
-    if (!otpStep) {
-      await handleInitialLogin(values);
-    } else {
-      await verifyOtp(values);
     }
   };
 
@@ -96,7 +43,7 @@ const Login = () => {
 
         <Col span={12} className="form-section">
           <Title level={4}>Patient Log In</Title>
-          <Form form={form} layout="vertical" onFinish={onFinish}>
+          <Form form={form} layout="vertical" onFinish={handleLogin}>
             <Form.Item
               name="aadhar"
               rules={[{ required: true, message: 'Please enter your Aadhar ID' }]}
@@ -111,18 +58,9 @@ const Login = () => {
               <Input placeholder="Registered Mobile Number" />
             </Form.Item>
 
-            {otpStep && (
-              <Form.Item
-                name="otp"
-                rules={[{ required: true, message: 'Please enter the OTP sent to your mobile' }]}
-              >
-                <Input placeholder="Enter OTP" />
-              </Form.Item>
-            )}
-
             <Form.Item>
               <Button type="primary" htmlType="submit" block>
-                {otpStep ? 'Verify OTP' : 'Send OTP'}
+                Log In
               </Button>
             </Form.Item>
 
