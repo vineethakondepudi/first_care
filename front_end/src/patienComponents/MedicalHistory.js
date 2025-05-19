@@ -58,7 +58,7 @@ const MedicalHistory = () => {
               <img
                 src={
                   user.image
-                    ? `http://localhost:5000/${user.image.replace(/\\/g, '/')}`
+                    ? `https://first-care.onrender.com/${user.image.replace(/\\/g, '/')}`
                     : '/default-user.png'
                 }
                 alt="User"

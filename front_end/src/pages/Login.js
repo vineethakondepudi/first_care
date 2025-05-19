@@ -12,7 +12,7 @@ const Login = () => {
 
   const handleInitialLogin = async (values) => {
     try {
-      const response = await fetch('http://localhost:5000/login', {
+      const response = await fetch('https://first-care.onrender.com/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -38,7 +38,7 @@ const Login = () => {
 
   const sendOtp = async (aadhar, phone) => {
     try {
-      const response = await fetch('http://localhost:5000/send-otp', {
+      const response = await fetch('https://first-care.onrender.com/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ aadharNumber: aadhar, phone }),
@@ -57,7 +57,7 @@ const Login = () => {
 
   const verifyOtp = async (values) => {
     try {
-      const response = await fetch('http://localhost:5000/verify-otp', {
+      const response = await fetch('https://first-care.onrender.com/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -52,7 +52,7 @@ const EditDetails = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:5000/register/edit', {
+      const response = await fetch('https://first-care.onrender.com/register/edit', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -97,7 +97,7 @@ const EditDetails = () => {
               <img
                 src={
                   user.image
-                    ? `http://localhost:5000/${user.image.replace(/\\/g, '/')}`
+                    ? `https://first-care.onrender.com/${user.image.replace(/\\/g, '/')}`
                     : '/default-user.png'
                 }
                 alt="User"

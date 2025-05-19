@@ -36,7 +36,7 @@ const Favorites = () => {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/patientNewAppointment");
+        const response = await axios.get("https://first-care.onrender.com/patientNewAppointment");
         const favoriteDoctors = response.data.filter((item) => item.isFavorite === true);
         setFavorites(favoriteDoctors);
       } catch (error) {
@@ -72,7 +72,7 @@ const Favorites = () => {
               <img
                 src={
                   user.image
-                    ? `http://localhost:5000/${user.image.replace(/\\/g, "/")}`
+                    ? `https://first-care.onrender.com/${user.image.replace(/\\/g, "/")}`
                     : "/default-user.png"
                 }
                 alt="User"

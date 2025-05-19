@@ -43,7 +43,7 @@ const RegistrationForm = () => {
         formDataToSend.append("image", imageFile);
       }
 
-      const res = await fetch("http://localhost:5000/register", {
+      const res = await fetch("https://first-care.onrender.com/register", {
         method: "POST",
         body: formDataToSend,
       });

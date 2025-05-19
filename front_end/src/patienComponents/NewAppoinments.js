@@ -42,7 +42,7 @@ const NewAppointment = () => {
 
   // Fetch dropdown data from backend
   useEffect(() => {
-    axios.get('http://localhost:5000/dropdown-options')
+    axios.get('https://first-care.onrender.com/dropdown-options')
       .then((res) => {
         setDropdownData(res.data);
       })
@@ -55,7 +55,7 @@ const NewAppointment = () => {
 
   // Fetch doctors list data
   useEffect(() => {
-    axios.get('http://localhost:5000/patientNewAppointment')
+    axios.get('https://first-care.onrender.com/patientNewAppointment')
       .then((res) => {
         const formattedData = res.data.map((item) => ({
            key: item._id,
@@ -76,7 +76,7 @@ const NewAppointment = () => {
   }, []);
   
 const handleFavoriteToggle = (id, newStatus) => {
-  axios.put(`http://localhost:5000/doctor/${id}/favorite`, { isFavorite: newStatus })
+  axios.put(`https://first-care.onrender.com/doctor/${id}/favorite`, { isFavorite: newStatus })
     .then((res) => {
       setDoctorData((prevData) =>
         prevData.map((doctor) =>
@@ -178,7 +178,7 @@ const handleFavoriteToggle = (id, newStatus) => {
           <img
             src={
               user.image
-                ? `http://localhost:5000/${user.image.replace(/\\/g, '/')}`
+                ? `https://first-care.onrender.com/${user.image.replace(/\\/g, '/')}`
                 : '/default-user.png'
             }
             alt="User"
