@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const sanitize = require('sanitize-filename');
 const router = express.Router();
 const Registration = require('../model/Registration');
 const DropdownOptions = require('../model/DropdownOptionsSchema');
@@ -14,10 +15,11 @@ const DoctorPatientSchema = require ('../model/DoctorPatientSchema');
 // Configure Multer for file storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // Ensure this folder exists
+    cb(null, 'uploads/'); // Make sure this folder exists
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
+    const safeFilename = Date.now() + '-' + sanitize(file.originalname).replace(/\s+/g, '_');
+    cb(null, safeFilename);
   }
 });
 const upload = multer({ storage: storage });
@@ -26,26 +28,16 @@ const upload = multer({ storage: storage });
 router.post('/register', upload.single('image'), async (req, res) => {
   try {
     const {
-        firstName, lastName, dob, gender, phone, email, address,
+      firstName, lastName, dob, gender, phone, email, address,
       aadharNumber, spouseName, EmergencyContactNumber, height, weight, BloodGroup
     } = req.body;
 
-    const image = req.file ? req.file.path : null;
+    // Store only the public path, not local file system path
+    const image = req.file ? `/uploads/${req.file.filename}` : null;
 
     const newEntry = new Registration({
-     firstName,
-     lastName,
-      dob,
-      gender,
-      phone,
-      email,
-      address,
-      aadharNumber,
-      spouseName,
-      EmergencyContactNumber,
-      height,
-      weight,
-      BloodGroup,
+      firstName, lastName, dob, gender, phone, email, address,
+      aadharNumber, spouseName, EmergencyContactNumber, height, weight, BloodGroup,
       image
     });
 
