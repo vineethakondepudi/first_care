@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage });
-
+// added role
 // POST /api/register
 router.post('/register', upload.single('image'), async (req, res) => {
   try {
