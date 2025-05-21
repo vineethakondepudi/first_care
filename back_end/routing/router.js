@@ -27,7 +27,7 @@ router.post('/register', upload.single('image'), async (req, res) => {
   try {
     const {
         firstName, lastName, dob, gender, phone, email, address,
-      aadharNumber, spouseName, EmergencyContactNumber, height, weight, BloodGroup
+      aadharNumber, spouseName, EmergencyContactNumber, height, weight, BloodGroup, role
     } = req.body;
 
     const image = req.file ? req.file.path : null;
@@ -46,7 +46,8 @@ router.post('/register', upload.single('image'), async (req, res) => {
       height,
       weight,
       BloodGroup,
-      image
+      image,
+      role
     });
 
     await newEntry.save();
@@ -128,7 +129,11 @@ router.post('/login', async (req, res) => {
       }
   
       // If user exists, return success
-      res.status(200).json({ message: 'Login successful', user });
+      res.status(200).json({ message: 'Login successful',  user: {
+    id: user._id,
+    firstName: user.firstName,
+    role: user.role 
+  } });
     } catch (err) {
       res.status(500).json({ message: 'Server error', error: err.message });
     }

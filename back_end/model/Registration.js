@@ -15,6 +15,11 @@ const registrationSchema = new mongoose.Schema({
   weight: { type: String, required: true },
   BloodGroup: { type: String, required: true }, 
   image: { type: String }, 
+  role: {
+    type: String,
+    enum: ['management', 'doctor', 'dmp','patient'], 
+    required: true
+  }
 });
 
 module.exports = mongoose.model('Registration', registrationSchema);
