@@ -8,7 +8,7 @@ const { Title } = Typography;
 
 const RegistrationForm = () => {
 
-     const navigate = useNavigate();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -23,7 +23,8 @@ const RegistrationForm = () => {
     EmergencyContactNumber: "",
     height: "",
     weight: "",
-    BloodGroup: ""
+    BloodGroup: "",
+    role: ""
   });
   const [imageFile, setImageFile] = useState(null);
 
@@ -103,7 +104,7 @@ const RegistrationForm = () => {
                   </Form.Item>
                   <Form.Item label="Phone Number">
                     <Input
-                      
+
                       name="phone"
                       value={formData.phone}
                       onChange={(e) =>
@@ -121,6 +122,18 @@ const RegistrationForm = () => {
                   <Form.Item label="Upload Image">
                     <Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} />
                   </Form.Item>
+                  <Form.Item label="Role">
+                    <Select
+                      name="role"
+                      value={formData.role}
+                      onChange={(value) => setFormData({ ...formData, role: value })}
+                    >
+                      <Select.Option value="Patient">Patient</Select.Option>
+                      <Select.Option value="Admin">Admin</Select.Option>
+                      <Select.Option value="Doctor">Doctor</Select.Option>
+                    </Select>
+                  </Form.Item>
+
                 </>
               )}
 
@@ -167,11 +180,11 @@ const RegistrationForm = () => {
                 )}
               </div>
               <Form.Item>
-              <div style={{ textAlign: 'center' }}>
-                <span>Already signed up? </span>
-                <Link to="/">Go to login</Link>
-              </div> 
-            </Form.Item>
+                <div style={{ textAlign: 'center' }}>
+                  <span>Already signed up? </span>
+                  <Link to="/">Go to login</Link>
+                </div>
+              </Form.Item>
             </Form>
           </div>
         </Col>
