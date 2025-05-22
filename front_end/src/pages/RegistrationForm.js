@@ -24,49 +24,66 @@ const RegistrationForm = () => {
     height: "",
     weight: "",
     BloodGroup: "",
-    role: ""
+    role: "",
+    educationQualification: "",
+    yearOfPassing: "",
+    university: "",
+    specialization: "",
+    registrationNumber: "",
+    experienceYears: "",
+    placesWorked: ""
   });
   const [imageFile, setImageFile] = useState(null);
 
-  const steps = [{ title: "Basic Details" }, { title: "Personal Details" }];
+  const steps = [
+    { title: "Basic Details" },
+    { title: "Personal Details" },
+    ...(formData.role === "doctor" ? [{ title: "Education & Experience" }] : [])
+  ];
 
-  const handleNext = () => setCurrentStep(currentStep + 1);
+
+  const handleNext = () => {
+  const nextStep = currentStep + 1;
+  if (formData.role !== "doctor" && nextStep > 1) return;
+  setCurrentStep(nextStep);
+};
+
   const handlePrev = () => setCurrentStep(currentStep - 1);
 
-const handleSubmit = async () => {
-  if (!formData.role) {
-    message.error("Please select a role.");
-    return;
-  }
-
-  try {
-    const formDataToSend = new FormData();
-    for (const key in formData) {
-      formDataToSend.append(key, formData[key]);
+  const handleSubmit = async () => {
+    if (!formData.role) {
+      message.error("Please select a role.");
+      return;
     }
 
-    if (imageFile) {
-      formDataToSend.append("image", imageFile);
+    try {
+      const formDataToSend = new FormData();
+      for (const key in formData) {
+        formDataToSend.append(key, formData[key]);
+      }
+
+      if (imageFile) {
+        formDataToSend.append("image", imageFile);
+      }
+
+      const res = await fetch("https://first-care.onrender.com/register", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Server error");
+      }
+
+      message.success(data.message);
+      navigate('/');
+    } catch (err) {
+      console.error("Error submitting form:", err);
+      message.error(err.message || "Error submitting form");
     }
-
-    const res = await fetch("https://first-care.onrender.com/register", {
-      method: "POST",
-      body: formDataToSend,
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.error || "Server error");
-    }
-
-    message.success(data.message);
-    navigate('/');
-  } catch (err) {
-    console.error("Error submitting form:", err);
-    message.error(err.message || "Error submitting form");
-  }
-};
+  };
 
 
   const handleChange = (e) => {
@@ -175,6 +192,59 @@ const handleSubmit = async () => {
                   </Form.Item>
                   <Form.Item label="Blood Group">
                     <Input name="BloodGroup" value={formData.BloodGroup} onChange={handleChange} />
+                  </Form.Item>
+                </>
+              )}
+              {currentStep === 2 && formData.role === "doctor" && (
+                <>
+                  <Form.Item label="Education Qualification">
+                    <Input
+                      name="educationQualification"
+                      value={formData.educationQualification}
+                      onChange={handleChange}
+                    />
+                  </Form.Item>
+                  <Form.Item label="Year of Passing">
+                    <Input
+                      name="yearOfPassing"
+                      value={formData.yearOfPassing}
+                      onChange={handleChange}
+                    />
+                  </Form.Item>
+                  <Form.Item label="University">
+                    <Input
+                      name="university"
+                      value={formData.university}
+                      onChange={handleChange}
+                    />
+                  </Form.Item>
+                  <Form.Item label="Specialization">
+                    <Input
+                      name="specialization"
+                      value={formData.specialization}
+                      onChange={handleChange}
+                    />
+                  </Form.Item>
+                  <Form.Item label="Medical Council Registration Number">
+                    <Input
+                      name="registrationNumber"
+                      value={formData.registrationNumber}
+                      onChange={handleChange}
+                    />
+                  </Form.Item>
+                  <Form.Item label="Years of Experience">
+                    <Input
+                      name="experienceYears"
+                      value={formData.experienceYears}
+                      onChange={handleChange}
+                    />
+                  </Form.Item>
+                  <Form.Item label="Places Worked">
+                    <Input
+                      name="placesWorked"
+                      value={formData.placesWorked}
+                      onChange={handleChange}
+                    />
                   </Form.Item>
                 </>
               )}
