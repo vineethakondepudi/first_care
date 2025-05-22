@@ -140,8 +140,9 @@ const handleSubmit = async () => {
                       onChange={(value) => setFormData({ ...formData, role: value })}
                     >
                       <Select.Option value="patient">Patient</Select.Option>
-                      <Select.Option value="Admin">Admin</Select.Option>
-                      <Select.Option value="Doctor">Doctor</Select.Option>
+                      <Select.Option value="doctor">Doctor</Select.Option>
+                      <Select.Option value="dmp">DMP</Select.Option>
+                      <Select.Option value="management">Admin</Select.Option>
                     </Select>
                   </Form.Item>
 

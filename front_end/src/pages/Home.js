@@ -52,57 +52,59 @@ const Home = () => {
         )}
       </div>
 
-      <div className="right-panel">
-      <div className="back-button-container">
-          <Button
-            type="primary"
-            icon={<ArrowRightOutlined />}
-            onClick={() => navigate('/')}
-            style={{ backgroundColor: '#1890ff', borderColor: '#1890ff' }}
-          >
-            Back
-          </Button>
-        </div>
-        <div className="home-title">Patient Home Screen</div>
-        <div className="button-grid">
-  <button className="btn btn-primary" onClick={() => navigate('/edit-details')}>
-    Edit Details
-  </button>
-  
-  <button className="btn btn-info" onClick={() => navigate('/medical-profile')}>
-    Medical Profile
-  </button>
-  
-  <button className="btn btn-calm" onClick={() => navigate('/medical-history')}>
-    Medical History
-  </button>
-  
-  <button className="btn btn-secondary" onClick={() => navigate('/favorites')}>
-    Favorites
-  </button>
-  
-  <button className="btn btn-success" onClick={() => navigate('/scheduled-appointments')}>
-    Scheduled Appointments
-  </button>
-  
-  <button className="btn btn-warning" onClick={() => navigate('/new-appointments')}>
-    New Appointments
-  </button>
-  
-  <button className="btn btn-danger" onClick={() => navigate('/buy-medicines')}>
-    Buy Medicines
-  </button>
-  
-  <button className="btn btn-light" onClick={() => navigate('/buy-products')}>
-    Buy Products
-  </button>
-  
-  <button className="btn btn-calm" onClick={() => navigate('/book-service')}>
-    Book a Service
-  </button>
+  // Inside Home.jsx
+<div className="right-panel">
+  <div className="back-button-container">
+    <Button
+      type="primary"
+      icon={<ArrowRightOutlined />}
+      onClick={() => navigate('/')}
+      style={{ backgroundColor: '#1890ff', borderColor: '#1890ff' }}
+    >
+      Back
+    </Button>
+  </div>
+
+  <div className="home-title">{user?.role === 'doctor' ? 'Doctor Home Screen' : 'Patient Home Screen'}</div>
+
+  <div className="button-grid">
+    {user?.role === 'patient' && (
+      <>
+        <button className="btn btn-primary" onClick={() => navigate('/edit-details')}>Edit Details</button>
+        <button className="btn btn-info" onClick={() => navigate('/medical-profile')}>Medical Profile</button>
+        <button className="btn btn-calm" onClick={() => navigate('/medical-history')}>Medical History</button>
+        <button className="btn btn-secondary" onClick={() => navigate('/favorites')}>Favorites</button>
+        <button className="btn btn-success" onClick={() => navigate('/scheduled-appointments')}>Scheduled Appointments</button>
+        <button className="btn btn-warning" onClick={() => navigate('/new-appointments')}>New Appointments</button>
+        <button className="btn btn-danger" onClick={() => navigate('/buy-medicines')}>Buy Medicines</button>
+        <button className="btn btn-light" onClick={() => navigate('/buy-products')}>Buy Products</button>
+        <button className="btn btn-calm" onClick={() => navigate('/book-service')}>Book a Service</button>
+      </>
+    )}
+
+    {user?.role === 'doctor' && (
+      <>
+        <button className="btn btn-primary" onClick={() => navigate('/my-profile')}>My Profile</button>
+        <button className="btn btn-info" onClick={() => navigate('/my-earnings')}>My Earnings</button>
+        <button className="btn btn-secondary" onClick={() => navigate('/my-clinic')}>My Clinic</button>
+        <button className="btn btn-success" onClick={() => navigate('/scheduled-appointments')}>Scheduled Appointments</button>
+        <button className="btn btn-warning" onClick={() => navigate('/appointment-requests')}>Appointment Requests</button>
+        <button className="btn btn-light" onClick={() => navigate('/my-patients')}>My Patients</button>
+        <button className="btn btn-calm" onClick={() => navigate('/book-service')}>Book a Service</button>
+        <button className="btn btn-danger" onClick={() => navigate('/mails-alerts')}>Mails/Alerts</button>
+      </>
+    )}
+
+    {/* Add another block for DMP role if needed */}
+    {user?.role === 'dmp' && (
+      <>
+        {/* Example: Add DMP-specific buttons here */}
+        <button className="btn btn-primary" onClick={() => navigate('/dmp-dashboard')}>DMP Dashboard</button>
+      </>
+    )}
+  </div>
 </div>
 
-      </div>
     </div>
   );
 };
