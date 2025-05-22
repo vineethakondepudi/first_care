@@ -27,6 +27,8 @@ const Home = () => {
         }
         parsedUser.age = age;
       }
+      console.log(parsedUser,30);
+      
 
       setUser(parsedUser);
     }
@@ -51,8 +53,6 @@ const Home = () => {
           </>
         )}
       </div>
-
-  // Inside Home.jsx
 <div className="right-panel">
   <div className="back-button-container">
     <Button
