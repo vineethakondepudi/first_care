@@ -8,7 +8,7 @@ const { Title } = Typography;
 
 const RegistrationForm = () => {
 
-     const navigate = useNavigate();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -23,7 +23,8 @@ const RegistrationForm = () => {
     EmergencyContactNumber: "",
     height: "",
     weight: "",
-    BloodGroup: ""
+    BloodGroup: "",
+    role: ""
   });
   const [imageFile, setImageFile] = useState(null);
 
@@ -32,30 +33,41 @@ const RegistrationForm = () => {
   const handleNext = () => setCurrentStep(currentStep + 1);
   const handlePrev = () => setCurrentStep(currentStep - 1);
 
-  const handleSubmit = async () => {
-    try {
-      const formDataToSend = new FormData();
-      for (const key in formData) {
-        formDataToSend.append(key, formData[key]);
-      }
+const handleSubmit = async () => {
+  if (!formData.role) {
+    message.error("Please select a role.");
+    return;
+  }
 
-      if (imageFile) {
-        formDataToSend.append("image", imageFile);
-      }
-
-      const res = await fetch("https://first-care.onrender.com/register", {
-        method: "POST",
-        body: formDataToSend,
-      });
-
-      const data = await res.json();
-      message.success(data.message);
-      navigate('/');
-    } catch (err) {
-      console.error("Error submitting form:", err);
-      message.error("Error submitting form");
+  try {
+    const formDataToSend = new FormData();
+    for (const key in formData) {
+      formDataToSend.append(key, formData[key]);
     }
-  };
+
+    if (imageFile) {
+      formDataToSend.append("image", imageFile);
+    }
+
+    const res = await fetch("https://first-care.onrender.com/register", {
+      method: "POST",
+      body: formDataToSend,
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Server error");
+    }
+
+    message.success(data.message);
+    navigate('/');
+  } catch (err) {
+    console.error("Error submitting form:", err);
+    message.error(err.message || "Error submitting form");
+  }
+};
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -103,7 +115,7 @@ const RegistrationForm = () => {
                   </Form.Item>
                   <Form.Item label="Phone Number">
                     <Input
-                      
+
                       name="phone"
                       value={formData.phone}
                       onChange={(e) =>
@@ -121,6 +133,18 @@ const RegistrationForm = () => {
                   <Form.Item label="Upload Image">
                     <Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} />
                   </Form.Item>
+                  <Form.Item label="Role">
+                    <Select
+                      name="role"
+                      value={formData.role}
+                      onChange={(value) => setFormData({ ...formData, role: value })}
+                    >
+                      <Select.Option value="patient">Patient</Select.Option>
+                      <Select.Option value="Admin">Admin</Select.Option>
+                      <Select.Option value="Doctor">Doctor</Select.Option>
+                    </Select>
+                  </Form.Item>
+
                 </>
               )}
 
@@ -167,11 +191,11 @@ const RegistrationForm = () => {
                 )}
               </div>
               <Form.Item>
-              <div style={{ textAlign: 'center' }}>
-                <span>Already signed up? </span>
-                <Link to="/">Go to login</Link>
-              </div> 
-            </Form.Item>
+                <div style={{ textAlign: 'center' }}>
+                  <span>Already signed up? </span>
+                  <Link to="/">Go to login</Link>
+                </div>
+              </Form.Item>
             </Form>
           </div>
         </Col>
