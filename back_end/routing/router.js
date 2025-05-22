@@ -27,7 +27,7 @@ router.post('/register', upload.single('image'), async (req, res) => {
   try {
     const {
         firstName, lastName, dob, gender, phone, email, address,
-      aadharNumber, spouseName, EmergencyContactNumber, height, weight, BloodGroup, role
+      aadharNumber, spouseName, EmergencyContactNumber, height, weight, BloodGroup
     } = req.body;
 
     const image = req.file ? req.file.path : null;
@@ -46,8 +46,7 @@ router.post('/register', upload.single('image'), async (req, res) => {
       height,
       weight,
       BloodGroup,
-      image,
-      role
+      image
     });
 
     await newEntry.save();
