@@ -17,6 +17,8 @@ const EditDetails = () => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('loggedInUser');
+    console.log(storedUser,20);
+    
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
 
@@ -36,6 +38,8 @@ const EditDetails = () => {
       }
 
       setUser(parsedUser);
+      console.log(parsedUser,41);
+      
       setFormData({
         phone: parsedUser.phone || '',
         address: parsedUser.address || '',
