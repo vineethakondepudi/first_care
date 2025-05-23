@@ -166,11 +166,8 @@ router.post('/login', async (req, res) => {
 
     // If user exists, return success
     res.status(200).json({
-      message: 'Login successful', user: {
-        id: user._id,
-        firstName: user.firstName,
-        role: user.role
-      }
+      message: 'Login successful', 
+      user: user 
     });
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
