@@ -61,7 +61,7 @@ const EditDetails = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ ...formData, aadharNumber: user.aadharNumber })
+        body: JSON.stringify({ ...formData, aadharNumber: user.aadharNumber , role: 'patient'})
       });
 
       const data = await response.json();
