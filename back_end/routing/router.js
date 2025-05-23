@@ -74,11 +74,13 @@ router.post('/register', upload.single('image'), async (req, res) => {
       registrationData.medicalCouncilNumber = medicalCouncilNumber;
       registrationData.yearsOfExperience = yearsOfExperience;
       registrationData.placesWorked = placesWorked;
-    } else {
-      registrationData.height = height;
-      registrationData.weight = weight;
-      registrationData.BloodGroup = BloodGroup;
     }
+    
+    // else {
+    //   registrationData.height = height;
+    //   registrationData.weight = weight;
+    //   registrationData.BloodGroup = BloodGroup;
+    // }
 
     const newEntry = new Registration(registrationData);
     await newEntry.save();
