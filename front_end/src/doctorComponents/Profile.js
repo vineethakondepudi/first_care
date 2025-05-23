@@ -44,11 +44,13 @@ const Profile = () => {
       console.log(parsedUser,41);
       
       setFormData({
-        phone: parsedUser.phone || '',
-        address: parsedUser.address || '',
-        email: parsedUser.email || '',
-        spouseName: parsedUser.spouseName || '',
-        EmergencyContactNumber: parsedUser.EmergencyContactNumber || ''
+        educationQualification: parsedUser.educationQualification || '',
+        yearOfPassing: parsedUser.yearOfPassing || '',
+        university: parsedUser.university || '',
+        specialization: parsedUser.specialization || '',
+        medicalCouncilNumber: parsedUser.medicalCouncilNumber || '',
+        yearsOfExperience: parsedUser.yearsOfExperience || '',
+        placesWorked: parsedUser.placesWorked || ''
       });
     }
   }, []);
