@@ -26,15 +26,8 @@ const upload = multer({ storage: storage });
 router.post('/register', upload.single('image'), async (req, res) => {
   try {
     const {
-        firstName, lastName, dob, gender, phone, email, address,
-      aadharNumber, spouseName, EmergencyContactNumber, height, weight, BloodGroup, role
-    } = req.body;
-
-    const image = req.file ? req.file.path : null;
-
-    const newEntry = new Registration({
-     firstName,
-     lastName,
+      firstName,
+      lastName,
       dob,
       gender,
       phone,
@@ -46,17 +39,55 @@ router.post('/register', upload.single('image'), async (req, res) => {
       height,
       weight,
       BloodGroup,
-      image,
-      role
-    });
+      role,
+      educationQualification,
+      yearOfPassing,
+      university,
+      specialization,
+      medicalCouncilNumber,
+      yearsOfExperience,
+      placesWorked
+    } = req.body;
 
+    const image = req.file ? req.file.path : null;
+
+    const registrationData = {
+      firstName,
+      lastName,
+      dob,
+      gender,
+      phone,
+      email,
+      address,
+      aadharNumber,
+      spouseName,
+      EmergencyContactNumber,
+      image,
+      role,
+    };
+
+    if (role === 'doctor') {
+      registrationData.educationQualification = educationQualification;
+      registrationData.yearOfPassing = yearOfPassing;
+      registrationData.university = university;
+      registrationData.specialization = specialization;
+      registrationData.medicalCouncilNumber = medicalCouncilNumber;
+      registrationData.yearsOfExperience = yearsOfExperience;
+      registrationData.placesWorked = placesWorked;
+    } else {
+      registrationData.height = height;
+      registrationData.weight = weight;
+      registrationData.BloodGroup = BloodGroup;
+    }
+
+    const newEntry = new Registration(registrationData);
     await newEntry.save();
+
     res.status(201).json({ message: 'Registration successful', data: newEntry });
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
-
 
 
 

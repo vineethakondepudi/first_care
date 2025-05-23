@@ -19,7 +19,14 @@ const registrationSchema = new mongoose.Schema({
     type: String,
     enum: ['management', 'doctor', 'dmp','patient'], 
     required: true
-  }
+  },
+  educationQualification: { type: String },
+  yearOfPassing: { type: String },
+  university: { type: String },
+  specialization: { type: String },
+  medicalCouncilNumber: { type: String },
+  yearsOfExperience: { type: String },
+  placesWorked: { type: String }
 });
 
 module.exports = mongoose.model('Registration', registrationSchema);
