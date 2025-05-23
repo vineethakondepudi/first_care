@@ -110,20 +110,56 @@ router.get('/register', async (req, res) => {
 
 // PATCH: Edit User API
 router.patch('/register/edit', async (req, res) => {
-  const { aadharNumber, phone, address, email, spouseName, EmergencyContactNumber } = req.body;
+  const {
+    aadharNumber,
+    role,
+    phone,
+    address,
+    email,
+    spouseName,
+    EmergencyContactNumber,
+    educationQualification,
+    yearOfPassing,
+    university,
+    specialization,
+    medicalCouncilNumber,
+    yearsOfExperience,
+    placesWorked
+  } = req.body;
 
   try {
-    // Find user by Aadhar number and update details
+    if (!aadharNumber || !role) {
+      return res.status(400).json({ message: 'Aadhar number and role are required.' });
+    }
+
+    let updateFields = {};
+
+    if (role === 'patient') {
+      updateFields = {
+        phone,
+        address,
+        email,
+        spouseName,
+        EmergencyContactNumber
+      };
+    } else if (role === 'doctor') {
+      updateFields = {
+        educationQualification,
+        yearOfPassing,
+        university,
+        specialization,
+        medicalCouncilNumber,
+        yearsOfExperience,
+        placesWorked
+      };
+    } else {
+      return res.status(400).json({ message: 'Invalid role specified.' });
+    }
+
     const updatedUser = await Registration.findOneAndUpdate(
-      { aadharNumber: aadharNumber },
-      {
-        phone: phone,
-        address: address,
-        email: email,
-        spouseName: spouseName,
-        EmergencyContactNumber: EmergencyContactNumber
-      },
-      { new: true } // This will return the updated document
+      { aadharNumber },
+      { $set: updateFields },
+      { new: true }
     );
 
     if (!updatedUser) {
@@ -135,6 +171,7 @@ router.patch('/register/edit', async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
+
 
 router.delete('/register/delete/:firstName', async (req, res) => {
   const { firstName } = req.params;
