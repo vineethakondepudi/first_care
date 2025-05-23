@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'; 
-import './EditDetails.css';
+import '../patienComponents/EditDetails.css';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
