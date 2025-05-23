@@ -3,7 +3,7 @@ const multer = require('multer');
 const router = express.Router();
 const Registration = require('../model/Registration');
 const DropdownOptions = require('../model/DropdownOptionsSchema');
-const DoctorPatientSchema = require ('../model/DoctorPatientSchema');
+const DoctorPatientSchema = require('../model/DoctorPatientSchema');
 
 
 
@@ -62,6 +62,9 @@ router.post('/register', upload.single('image'), async (req, res) => {
       aadharNumber,
       spouseName,
       EmergencyContactNumber,
+      height,
+      weight,
+      BloodGroup,
       image,
       role,
     };
@@ -75,7 +78,7 @@ router.post('/register', upload.single('image'), async (req, res) => {
       registrationData.yearsOfExperience = yearsOfExperience;
       registrationData.placesWorked = placesWorked;
     }
-    
+
     // else {
     //   registrationData.height = height;
     //   registrationData.weight = weight;
@@ -96,84 +99,86 @@ router.post('/register', upload.single('image'), async (req, res) => {
 
 
 router.get('/register', async (req, res) => {
-    try {
-      const allEntries = await Registration.find();
-      res.status(200).json(allEntries);
-    } catch (err) {
-      res.status(500).json({ message: 'Server error', error: err.message });
-    }
-  });
+  try {
+    const allEntries = await Registration.find();
+    res.status(200).json(allEntries);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
 
 
 // PATCH: Edit User API
 router.patch('/register/edit', async (req, res) => {
-    const { aadharNumber, phone, address, email, spouseName, EmergencyContactNumber } = req.body;
-  
-    try {
-      // Find user by Aadhar number and update details
-      const updatedUser = await Registration.findOneAndUpdate(
-        { aadharNumber: aadharNumber },
-        { 
-          phone: phone,
-          address: address,
-          email: email,
-          spouseName: spouseName,
-          EmergencyContactNumber: EmergencyContactNumber
-        },
-        { new: true } // This will return the updated document
-      );
-  
-      if (!updatedUser) {
-        return res.status(404).json({ message: 'User not found. Please check the Aadhar number.' });
-      }
-  
-      res.status(200).json({ message: 'User details updated successfully', data: updatedUser });
-    } catch (err) {
-      res.status(500).json({ message: 'Server error', error: err.message });
-    }
-  });
+  const { aadharNumber, phone, address, email, spouseName, EmergencyContactNumber } = req.body;
 
-  router.delete('/register/delete/:firstName', async (req, res) => {
-    const { firstName } = req.params;
-  
-    try {
-      const deletedUser = await Registration.findOneAndDelete({ firstName });
-  
-      if (!deletedUser) {
-        return res.status(404).json({ message: 'User not found with the given first name.' });
-      }
-  
-      res.status(200).json({ message: 'User deleted successfully', data: deletedUser });
-    } catch (err) {
-      res.status(500).json({ message: 'Server error', error: err.message });
+  try {
+    // Find user by Aadhar number and update details
+    const updatedUser = await Registration.findOneAndUpdate(
+      { aadharNumber: aadharNumber },
+      {
+        phone: phone,
+        address: address,
+        email: email,
+        spouseName: spouseName,
+        EmergencyContactNumber: EmergencyContactNumber
+      },
+      { new: true } // This will return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found. Please check the Aadhar number.' });
     }
-  });
-  
+
+    res.status(200).json({ message: 'User details updated successfully', data: updatedUser });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
+router.delete('/register/delete/:firstName', async (req, res) => {
+  const { firstName } = req.params;
+
+  try {
+    const deletedUser = await Registration.findOneAndDelete({ firstName });
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found with the given first name.' });
+    }
+
+    res.status(200).json({ message: 'User deleted successfully', data: deletedUser });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
 // POST: Login API
 router.post('/login', async (req, res) => {
-    const { phone, aadharNumber } = req.body; // Only phone is required now
-  
-    try {
-      // Find user with matching phone number
-      const user = await Registration.findOne({ phone: phone, aadharNumber: aadharNumber });
-  
-      if (!user) {
-        return res.status(404).json({ message: 'User not found. Please register first.' });
-      }
-  
-      // If user exists, return success
-      res.status(200).json({ message: 'Login successful',  user: {
-    id: user._id,
-    firstName: user.firstName,
-    role: user.role 
-  } });
-    } catch (err) {
-      res.status(500).json({ message: 'Server error', error: err.message });
+  const { phone, aadharNumber } = req.body; // Only phone is required now
+
+  try {
+    // Find user with matching phone number
+    const user = await Registration.findOne({ phone: phone, aadharNumber: aadharNumber });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found. Please register first.' });
     }
-  });
-  
-  
-  
+
+    // If user exists, return success
+    res.status(200).json({
+      message: 'Login successful', user: {
+        id: user._id,
+        firstName: user.firstName,
+        role: user.role
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
+
+
 // POST: Add new dropdown options
 router.post('/dropdown-options', async (req, res) => {
   try {
