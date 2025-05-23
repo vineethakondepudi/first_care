@@ -50,40 +50,54 @@ const RegistrationForm = () => {
 
   const handlePrev = () => setCurrentStep(currentStep - 1);
 
-  const handleSubmit = async () => {
-    if (!formData.role) {
-      message.error("Please select a role.");
-      return;
+ const handleSubmit = async () => {
+  if (!formData.role) {
+    message.error("Please select a role.");
+    return;
+  }
+
+  // Validation for required fields
+  const requiredFields = ["firstName", "lastName", "dob", "gender", "phone", "email", "role", "address", "aadharNumber", "height", "weight", "BloodGroup"];
+  
+  if (formData.role === "doctor") {
+    requiredFields.push("educationQualification", "yearOfPassing", "university", "specialization", "registrationNumber", "experienceYears", "placesWorked");
+  }
+
+  const missingFields = requiredFields.filter(field => !formData[field]);
+  if (missingFields.length > 0) {
+    message.error(`Please fill all required fields: ${missingFields.join(", ")}`);
+    return;
+  }
+
+  try {
+    const formDataToSend = new FormData();
+    for (const key in formData) {
+      formDataToSend.append(key, formData[key]);
     }
 
-    try {
-      const formDataToSend = new FormData();
-      for (const key in formData) {
-        formDataToSend.append(key, formData[key]);
-      }
-
-      if (imageFile) {
-        formDataToSend.append("image", imageFile);
-      }
-
-      const res = await fetch("https://first-care.onrender.com/register", {
-        method: "POST",
-        body: formDataToSend,
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Server error");
-      }
-
-      message.success(data.message);
-      navigate('/');
-    } catch (err) {
-      console.error("Error submitting form:", err);
-      message.error(err.message || "Error submitting form");
+    if (imageFile) {
+      formDataToSend.append("image", imageFile);
     }
-  };
+
+    const res = await fetch("https://first-care.onrender.com/register", {
+      method: "POST",
+      body: formDataToSend,
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Server error");
+    }
+
+    message.success(data.message);
+    navigate('/');
+  } catch (err) {
+    console.error("Error submitting form:", err);
+    message.error(err.message || "Error submitting form");
+  }
+};
+
 
 
   const handleChange = (e) => {
