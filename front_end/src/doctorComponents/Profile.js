@@ -1,6 +1,6 @@
 // Profile.jsx
 import React, { useEffect, useState } from 'react'; 
-import '../patienComponents/EditDetails.css';
+import './Profile.css';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
