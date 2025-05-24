@@ -76,6 +76,7 @@ const Clinic = () => {
         {/* Right: Earnings Table */}
         <div className="profile-right">
                {/* Date Range Buttons */}
+               <h4>Availability</h4>
       <div style={{ marginBottom: 20 }}>
         <Space>
           <DatePicker
