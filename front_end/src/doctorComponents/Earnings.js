@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../patienComponents/MedicalProfile.css';
+import './Earnings.css';
 import { useNavigate } from 'react-router-dom';
 import { Button, DatePicker, Space, Pagination } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
