@@ -52,19 +52,22 @@ const paginatedData = filteredRecords.slice(
       })
       .catch(err => console.error('Error fetching records:', err));
   }, []);
-
- const handleFilter = () => {
+  
+const handleFilter = () => {
   if (!fromDate || !toDate) return;
+
+  const from = dayjs(fromDate).startOf('day');  // 00:00:00
+  const to = dayjs(toDate).endOf('day');        // 23:59:59
 
   const filtered = records.filter(record => {
     const recordDate = dayjs(record.date);
-    return recordDate.isAfter(dayjs(fromDate).subtract(1, 'day')) &&
-           recordDate.isBefore(dayjs(toDate).add(1, 'day'));
+    return recordDate.isSameOrAfter(from) && recordDate.isSameOrBefore(to);
   });
 
   setFilteredRecords(filtered);
   setCurrentPage(1); // Reset to first page
 };
+
 
   return (
     <div className="medical-profile-container">
