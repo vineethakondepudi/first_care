@@ -130,7 +130,7 @@ const paginatedData = filteredRecords.slice(
     paginatedData.map(record => (
       <tr key={record._id}>
          <td>{dayjs(record.date).format('YYYY-MM-DD')}</td>
-        <td>{record.amount}{record.records.join(', ')}</td>
+        <td>{record.patientName},{record.records.join(', ')}</td>
         <td><button>Accept</button><button>Decline</button></td>
       </tr>
     ))
