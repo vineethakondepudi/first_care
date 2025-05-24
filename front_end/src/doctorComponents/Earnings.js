@@ -44,7 +44,7 @@ const Earnings = () => {
             Back
           </Button>
         </div>
-            <div className="medical-profile-header">Medical Profile</div>
+            <div className="medical-profile-header">My Earnings</div>
 
             <div className="medical-profile-content">
                 {/* Left: Image and Name */}
