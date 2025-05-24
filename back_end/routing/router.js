@@ -214,30 +214,38 @@ router.post('/login', async (req, res) => {
 
 
 // POST: Add new dropdown options
+// POST: Add new dropdown options by pushing into arrays
 router.post('/dropdown-options', async (req, res) => {
   try {
-    const {
-      specialization,
-      location,
-      language,
-      feeRange,
-      availability
-    } = req.body;
+    const { specialization, location, language, feeRange, availability } = req.body;
 
-    const newOptions = new DropdownOptions({
-      specialization,
-      location,
-      language,
-      feeRange,
-      availability
-    });
+    let options = await DropdownOptions.findOne().sort({ createdAt: -1 });
 
-    await newOptions.save();
-    res.status(201).json({ message: 'Dropdown options saved successfully', data: newOptions });
+    if (!options) {
+      // If no document exists, create a new one with arrays
+      options = new DropdownOptions({
+        specialization: [specialization],
+        location: [location],
+        language: [language],
+        feeRange: [feeRange],
+        availability: [availability],
+      });
+    } else {
+      // Push new values if they are not already included
+      if (!options.specialization.includes(specialization)) options.specialization.push(specialization);
+      if (!options.location.includes(location)) options.location.push(location);
+      if (!options.language.includes(language)) options.language.push(language);
+      if (!options.feeRange.includes(feeRange)) options.feeRange.push(feeRange);
+      if (!options.availability.includes(availability)) options.availability.push(availability);
+    }
+
+    await options.save();
+    res.status(200).json({ message: 'Dropdown options updated successfully', data: options });
   } catch (err) {
-    res.status(500).json({ message: 'Error saving dropdown options', error: err.message });
+    res.status(500).json({ message: 'Error updating dropdown options', error: err.message });
   }
 });
+
 
 // GET: Fetch dropdown options (latest one)
 router.get('/dropdown-options', async (req, res) => {
