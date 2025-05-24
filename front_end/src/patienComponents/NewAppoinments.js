@@ -41,16 +41,23 @@ const NewAppointment = () => {
   }, []);
 
   // Fetch dropdown data from backend
-  useEffect(() => {
-    axios.get('https://first-care.onrender.com/dropdown-options')
-      .then((res) => {
-        setDropdownData(res.data);
-      })
-      .catch((err) => {
-        message.error('Failed to fetch dropdown options');
-        console.error(err);
+ useEffect(() => {
+  axios.get('https://first-care.onrender.com/dropdown-options')
+    .then((res) => {
+      setDropdownData({
+        specialization: res.data.specialization || [],
+        location: res.data.location || [],
+        language: res.data.language || [],
+        feeRange: res.data.feeRange || [],
+        availability: res.data.availability || [],
       });
-  }, []);
+    })
+    .catch((err) => {
+      message.error('Failed to fetch dropdown options');
+      console.error(err);
+    });
+}, []);
+
 
 
   // Fetch doctors list data
