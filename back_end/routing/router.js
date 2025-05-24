@@ -4,7 +4,7 @@ const router = express.Router();
 const Registration = require('../model/Registration');
 const DropdownOptions = require('../model/DropdownOptionsSchema');
 const DoctorPatientSchema = require('../model/DoctorPatientSchema');
-
+const PatientRecord = require('../model/PatientRecordSchema');
 
 
 
@@ -303,6 +303,36 @@ router.put('/doctor/:id/favorite', async (req, res) => {
     res.json(updatedDoctor);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+// POST API – Add a new patient record
+router.post('/patient-records', async (req, res) => {
+  try {
+    const { date, amount, patientName, approval, records } = req.body;
+
+    const newRecord = new PatientRecord({
+      date,
+      amount,
+      patientName,
+      approval,
+      records
+    });
+
+    await newRecord.save();
+    res.status(201).json({ message: 'Patient record saved successfully', data: newRecord });
+  } catch (err) {
+    res.status(500).json({ message: 'Error saving patient record', error: err.message });
+  }
+});
+
+// GET API – Fetch all patient records
+router.get('/patient-records', async (req, res) => {
+  try {
+    const records = await PatientRecord.find().sort({ createdAt: -1 });
+    res.status(200).json(records);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching patient records', error: err.message });
   }
 });
 
