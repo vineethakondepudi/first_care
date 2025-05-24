@@ -4,11 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { Button, DatePicker, Space, Pagination } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
-
-dayjs.extend(isSameOrAfter);
-dayjs.extend(isSameOrBefore);
 
 const Earnings = () => {
    
@@ -57,12 +52,11 @@ const paginatedData = filteredRecords.slice(
       })
       .catch(err => console.error('Error fetching records:', err));
   }, []);
-
 const handleFilter = () => {
   if (!fromDate || !toDate) return;
 
-  const from = dayjs(fromDate).startOf('day');
-  const to = dayjs(toDate).endOf('day');
+  const from = dayjs(fromDate).startOf('day');  // 00:00:00
+  const to = dayjs(toDate).endOf('day');        // 23:59:59
 
   const filtered = records.filter(record => {
     const recordDate = dayjs(record.date);
@@ -70,9 +64,8 @@ const handleFilter = () => {
   });
 
   setFilteredRecords(filtered);
-  setCurrentPage(1);
+  setCurrentPage(1); // Reset to first page
 };
-
 
 
   return (
