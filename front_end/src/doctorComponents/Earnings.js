@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import '../patienComponents/MedicalProfile.css';
 import { useNavigate } from 'react-router-dom';
-import { Button, DatePicker, Space } from 'antd';
+import { Button, DatePicker, Space, Pagination } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Pagination } from 'antd';
 import dayjs from 'dayjs';
 
+
 const Earnings = () => {
+   
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [records, setRecords] = useState([]);
@@ -53,18 +54,18 @@ const paginatedData = filteredRecords.slice(
       .catch(err => console.error('Error fetching records:', err));
   }, []);
 
-  const handleFilter = () => {
-    if (fromDate && toDate) {
-      const filtered = records.filter(record => {
-        const recordDate = dayjs(record.date);
-        return recordDate.isAfter(dayjs(fromDate).subtract(1, 'day')) &&
-               recordDate.isBefore(dayjs(toDate).add(1, 'day'));
-      });
-      setFilteredRecords(filtered);
-    } else {
-      setFilteredRecords(records); // No date filter
-    }
-  };
+ const handleFilter = () => {
+  if (!fromDate || !toDate) return;
+
+  const filtered = records.filter(record => {
+    const recordDate = dayjs(record.date);
+    return recordDate.isAfter(dayjs(fromDate).subtract(1, 'day')) &&
+           recordDate.isBefore(dayjs(toDate).add(1, 'day'));
+  });
+
+  setFilteredRecords(filtered);
+  setCurrentPage(1); // Reset to first page
+};
 
   return (
     <div className="medical-profile-container">
@@ -129,7 +130,7 @@ const paginatedData = filteredRecords.slice(
   {paginatedData.length > 0 ? (
     paginatedData.map(record => (
       <tr key={record._id}>
-        <td>{new Date(record.date).toLocaleDateString()}</td>
+         <td>{dayjs(record.date).format('YYYY-MM-DD')}</td>
         <td>₹{record.amount}</td>
         <td>{record.records.join(', ')}</td>
       </tr>
