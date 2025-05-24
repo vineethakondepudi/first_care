@@ -5,7 +5,7 @@ import { Button, DatePicker, Space } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
-const Clinic = () => {
+const ConsultationRecords = () => {
    
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -53,7 +53,7 @@ const Clinic = () => {
         </Button>
       </div>
 
-      <div className="medical-profile-header">My Clinic</div>
+      <div className="medical-profile-header">Consultation Records - Patient Name</div>
       <div className="medical-profile-content">
         {/* Left: Image and Name */}
         <div className="left-panel">
@@ -76,122 +76,46 @@ const Clinic = () => {
         {/* Right: Earnings Table */}
         <div className="profile-right">
                {/* Date Range Buttons */}
-               <h4>Availability</h4>
+            
       <div style={{ marginBottom: 20 }}>
         <Space>
-          <DatePicker
-            placeholder="From"
-            style={{ width: 150 }}
-          />
-          <DatePicker
-            placeholder="To"
-            style={{ width: 150 }}
-          />
-          <Button type="primary" >OK</Button>
-          <p>Monday</p>
-        </Space>
-      </div>
-          <div style={{ marginBottom: 20 }}>
-        <Space>
-          <DatePicker
-            placeholder="From"
-            style={{ width: 150 }}
-          />
-          <DatePicker
-            placeholder="To"
-            style={{ width: 150 }}
-          />
-          <Button type="primary" >OK</Button>
-          <p>Monday</p>
+              <iframe
+  src="https://meet.jit.si/DoctorPatientRoom123"
+  allow="camera; microphone; fullscreen"
+  width="100%"
+  height="500px"
+/>
+          <Button type="primary" >Start</Button>
+          <Button type="primary" >End</Button>
         </Space>
       </div>
         <div style={{ marginBottom: 20 }}>
         <Space>
-          <DatePicker
-            placeholder="From"
-            style={{ width: 150 }}
-          />
-          <DatePicker
-            placeholder="To"
-            style={{ width: 150 }}
+          <p>Initial Assessment</p>
+          <input
           />
           <Button type="primary" >OK</Button>
-          <p>Tuesday</p>
+        </Space>
+      </div>
+            <div style={{ marginBottom: 20 }}>
+        <Space>
+          <p>Recommended Test</p>
+          <input
+          />
+          <Button type="primary" >OK</Button>
         </Space>
       </div>
         <div style={{ marginBottom: 20 }}>
         <Space>
-          <DatePicker
-            placeholder="From"
-            style={{ width: 150 }}
-          />
-          <DatePicker
-            placeholder="To"
-            style={{ width: 150 }}
+          <p>Medicine</p>
+          <input
           />
           <Button type="primary" >OK</Button>
-          <p>Wednesday</p>
         </Space>
       </div>
-        <div style={{ marginBottom: 20 }}>
+      <div style={{ marginBottom: 20 }}>
         <Space>
-          <DatePicker
-            placeholder="From"
-            style={{ width: 150 }}
-          />
-          <DatePicker
-            placeholder="To"
-            style={{ width: 150 }}
-          />
-          <Button type="primary" >OK</Button>
-          <p>Thursday</p>
-        </Space>
-      </div>
-        <div style={{ marginBottom: 20 }}>
-        <Space>
-          <DatePicker
-            placeholder="From"
-            style={{ width: 150 }}
-          />
-          <DatePicker
-            placeholder="To"
-            style={{ width: 150 }}
-          />
-          <Button type="primary" >OK</Button>
-          <p>Friday</p>
-        </Space>
-      </div>
-        <div style={{ marginBottom: 20 }}>
-        <Space>
-          <DatePicker
-            placeholder="From"
-            style={{ width: 150 }}
-          />
-          <DatePicker
-            placeholder="To"
-            style={{ width: 150 }}
-          />
-          <Button type="primary" >OK</Button>
-          <p>Saturday</p>
-        </Space>
-      </div>
-  <div style={{ marginBottom: 20 }}>
-        <Space>
-          <DatePicker
-            placeholder="From"
-            style={{ width: 150 }}
-          />
-          <DatePicker
-            placeholder="To"
-            style={{ width: 150 }}
-          />
-          <Button type="primary" >OK</Button>
-          <p>Sunday</p>
-        </Space>
-      </div>
-        <div style={{ marginBottom: 20 }}>
-        <Space>
-          <p>Consultation Fee</p>
+          <p>Medical Advise</p>
           <input
           />
           <Button type="primary" >OK</Button>
@@ -203,5 +127,5 @@ const Clinic = () => {
   );
 };
 
-export default Clinic;
+export default ConsultationRecords;
 
