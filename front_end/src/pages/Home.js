@@ -87,7 +87,7 @@ const Home = () => {
         <button className="btn btn-primary" onClick={() => navigate('/my-profile')}>My Profile</button>
         <button className="btn btn-info" onClick={() => navigate('/my-earnings')}>My Earnings</button>
         <button className="btn btn-secondary" onClick={() => navigate('/my-clinic')}>My Clinic</button>
-        <button className="btn btn-success" onClick={() => navigate('/scheduled-appointments')}>Scheduled Appointments</button>
+        <button className="btn btn-success" onClick={() => navigate('/schedule-appointments')}>Scheduled Appointments</button>
         <button className="btn btn-warning" onClick={() => navigate('/appointment-requests')}>Appointment Requests</button>
         <button className="btn btn-light" onClick={() => navigate('/my-patients')}>My Patients</button>
         <button className="btn btn-calm" onClick={() => navigate('/book-service')}>Book a Service</button>

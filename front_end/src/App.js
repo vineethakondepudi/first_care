@@ -68,7 +68,7 @@ const App = () => {
          <Route path="/my-profile" element={ <MainLayout> <Profile /> </MainLayout>} />
          <Route path="/my-earnings" element={ <MainLayout> <Earnings /> </MainLayout>} />
          <Route path="/my-clinic" element={ <MainLayout> <Clinic /> </MainLayout>} />
-         <Route path="//scheduled-appointments" element={ <MainLayout> <Appointments /> </MainLayout>} />
+         <Route path="/schedule-appointments" element={ <MainLayout> <Appointments /> </MainLayout>} />
          <Route path="/appointment-requests" element={ <MainLayout> <AppointmentRequests /> </MainLayout>} />
          <Route path="/my-patients" element={ <MainLayout> <Patients /> </MainLayout>} />
          <Route path="/book-service" element={ <MainLayout> <BookAService /> </MainLayout>} />
