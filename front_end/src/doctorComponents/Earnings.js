@@ -71,24 +71,6 @@ const Earnings = () => {
       </div>
 
       <div className="medical-profile-header">My Earnings</div>
-
-      {/* Date Range Buttons */}
-      <div style={{ marginBottom: 20 }}>
-        <Space>
-          <DatePicker
-            placeholder="From"
-            onChange={(date) => setFromDate(date)}
-            style={{ width: 150 }}
-          />
-          <DatePicker
-            placeholder="To"
-            onChange={(date) => setToDate(date)}
-            style={{ width: 150 }}
-          />
-          <Button type="primary" onClick={handleFilter}>OK</Button>
-        </Space>
-      </div>
-
       <div className="medical-profile-content">
         {/* Left: Image and Name */}
         <div className="left-panel">
@@ -110,6 +92,22 @@ const Earnings = () => {
 
         {/* Right: Earnings Table */}
         <div className="profile-right">
+               {/* Date Range Buttons */}
+      <div style={{ marginBottom: 20 }}>
+        <Space>
+          <DatePicker
+            placeholder="From"
+            onChange={(date) => setFromDate(date)}
+            style={{ width: 150 }}
+          />
+          <DatePicker
+            placeholder="To"
+            onChange={(date) => setToDate(date)}
+            style={{ width: 150 }}
+          />
+          <Button type="primary" onClick={handleFilter}>OK</Button>
+        </Space>
+      </div>
           <table className="medical-table">
             <thead>
               <tr>
