@@ -3,6 +3,7 @@ import '../patienComponents/MedicalProfile.css';
 import { useNavigate } from 'react-router-dom';
 import { Button, DatePicker, Space } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
+import { Pagination } from 'antd';
 import dayjs from 'dayjs';
 
 const Earnings = () => {
@@ -12,6 +13,14 @@ const Earnings = () => {
   const [filteredRecords, setFilteredRecords] = useState([]);
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+const pageSize = 5;
+
+const paginatedData = filteredRecords.slice(
+  (currentPage - 1) * pageSize,
+  currentPage * pageSize
+);
+
 
   useEffect(() => {
     // Get user data from localStorage
@@ -116,22 +125,33 @@ const Earnings = () => {
                 <th>Details</th>
               </tr>
             </thead>
-            <tbody>
-              {filteredRecords.length > 0 ? (
-                filteredRecords.map(record => (
-                  <tr key={record._id}>
-                    <td>{new Date(record.date).toLocaleDateString()}</td>
-                    <td>₹{record.amount}</td>
-                    <td>{record.records.join(', ')}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="3" style={{ textAlign: 'center' }}>No records found</td>
-                </tr>
-              )}
-            </tbody>
+           <tbody>
+  {paginatedData.length > 0 ? (
+    paginatedData.map(record => (
+      <tr key={record._id}>
+        <td>{new Date(record.date).toLocaleDateString()}</td>
+        <td>₹{record.amount}</td>
+        <td>{record.records.join(', ')}</td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="3" style={{ textAlign: 'center' }}>No records found</td>
+    </tr>
+  )}
+</tbody>
+
           </table>
+          <div style={{ marginTop: 16, textAlign: 'center' }}>
+  <Pagination
+    current={currentPage}
+    pageSize={pageSize}
+    total={filteredRecords.length}
+    onChange={page => setCurrentPage(page)}
+    showSizeChanger={false}
+  />
+</div>
+
         </div>
       </div>
     </div>
