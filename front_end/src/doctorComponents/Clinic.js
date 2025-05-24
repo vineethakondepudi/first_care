@@ -87,7 +87,7 @@ const Clinic = () => {
             style={{ width: 150 }}
           />
           <Button type="primary" >OK</Button>
-          <h2>Monday</h2>
+          <p>Monday</p>
         </Space>
       </div>
           <div style={{ marginBottom: 20 }}>
@@ -101,7 +101,7 @@ const Clinic = () => {
             style={{ width: 150 }}
           />
           <Button type="primary" >OK</Button>
-          <h2>Monday</h2>
+          <p>Monday</p>
         </Space>
       </div>
         <div style={{ marginBottom: 20 }}>
@@ -115,7 +115,7 @@ const Clinic = () => {
             style={{ width: 150 }}
           />
           <Button type="primary" >OK</Button>
-          <h2>Tuesday</h2>
+          <p>Tuesday</p>
         </Space>
       </div>
         <div style={{ marginBottom: 20 }}>
@@ -129,7 +129,7 @@ const Clinic = () => {
             style={{ width: 150 }}
           />
           <Button type="primary" >OK</Button>
-          <h2>Wednesday</h2>
+          <p>Wednesday</p>
         </Space>
       </div>
         <div style={{ marginBottom: 20 }}>
@@ -143,7 +143,7 @@ const Clinic = () => {
             style={{ width: 150 }}
           />
           <Button type="primary" >OK</Button>
-          <h2>Thursday</h2>
+          <p>Thursday</p>
         </Space>
       </div>
         <div style={{ marginBottom: 20 }}>
@@ -157,7 +157,7 @@ const Clinic = () => {
             style={{ width: 150 }}
           />
           <Button type="primary" >OK</Button>
-          <h2>Friday</h2>
+          <p>Friday</p>
         </Space>
       </div>
         <div style={{ marginBottom: 20 }}>
@@ -171,7 +171,7 @@ const Clinic = () => {
             style={{ width: 150 }}
           />
           <Button type="primary" >OK</Button>
-          <h2>Saturday</h2>
+          <p>Saturday</p>
         </Space>
       </div>
   <div style={{ marginBottom: 20 }}>
@@ -185,12 +185,12 @@ const Clinic = () => {
             style={{ width: 150 }}
           />
           <Button type="primary" >OK</Button>
-          <h2>Sunday</h2>
+          <p>Sunday</p>
         </Space>
       </div>
         <div style={{ marginBottom: 20 }}>
         <Space>
-          <h2>Consultation Fee</h2>
+          <p>Consultation Fee</p>
           <input
           />
           <Button type="primary" >OK</Button>
