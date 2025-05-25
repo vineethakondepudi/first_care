@@ -22,8 +22,7 @@ app.use(express.json());
 
 // Routes
 app.use('/', registrationRoute);
-app.use('/uploads', express.static('uploads'));
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
