@@ -41,14 +41,11 @@ const Home = () => {
         {user && (
           <>
             <img
-              src={
-                user.image
-                  ? `https://first-care.onrender.com/${user.image.replace(/\\/g, '/')}`
-                  : '/default-user.png'
-              }
-              alt="User"
+  src={`https://first-care.onrender.com/${user.image.replace(/\\/g, '/')}`}
+   alt="User"
               className="user-photo"
-            />
+/>
+
             <p className="user-info">{`${user.firstName} ${user.lastName} ${user.age} ${user.gender}`}</p>
           </>
         )}
