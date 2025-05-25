@@ -75,13 +75,13 @@ const Profile = () => {
   };
 
   return (
-    <div className="edit-details-wrapper">
+    <div className="profile-details-wrapper">
       <div className="back-button-container">
         <Button type="primary" icon={<ArrowRightOutlined />} onClick={() => navigate('/home')}>
           Back
         </Button>
       </div>
-      <h2 className="header">My Profile</h2>
+      <h2 className="headers">My Profile</h2>
       <div className="content-section">
         <div className="left-panel">
           {user && (

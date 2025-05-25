@@ -1,4 +1,4 @@
-.edit-details-wrapper {
+.profile-details-wrapper {
   background-color: #f5fbff; /* very light blue */
   padding: 30px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -6,7 +6,7 @@
   color: #004d66; /* deep teal-blue for text */
 }
 
-.header {
+.headers {
   background-color: #007acc; /* strong medical blue */
   text-align: center;
   padding: 20px;
