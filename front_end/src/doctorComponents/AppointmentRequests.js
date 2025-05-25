@@ -135,7 +135,7 @@ const paginatedData = filteredRecords.slice(
             <Button
   type="primary"
   onClick={() => navigate('/consultation-records')}
-  style={{ backgroundColor: '#34d399', borderColor: '#34d399', marginBottom: 20 }}
+  style={{ backgroundColor: '#34d399', borderColor: '#34d399', marginBottom: 20, marginRight: 10  }}
 >
   Start
 </Button>
