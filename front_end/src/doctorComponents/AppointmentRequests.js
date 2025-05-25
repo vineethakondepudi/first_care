@@ -131,7 +131,14 @@ const paginatedData = filteredRecords.slice(
       <tr key={record._id}>
          <td>{dayjs(record.date).format('YYYY-MM-DD')}</td>
         <td>{record.patientName},{record.records.join(', ')}</td>
-        <td><button>Start</button><button>End</button></td>
+        <td><button>Start</button><Button
+  type="primary"
+  onClick={() => navigate('/consultation-records')}
+  style={{ backgroundColor: '#34d399', borderColor: '#34d399', marginBottom: 20 }}
+>
+  Start
+</Button>
+<Button>End</Button></td>
       </tr>
     ))
   ) : (

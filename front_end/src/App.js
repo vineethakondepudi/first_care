@@ -24,6 +24,7 @@ import Appointments from './doctorComponents/Appointments';
 import AppointmentRequests from './doctorComponents/AppointmentRequests';
 import Patients from './doctorComponents/Patients';
 import MailsAlerts from './doctorComponents/MailsAlerts';
+import ConsultationRecords from './doctorComponents/ConsultationRecords';
 
 const App = () => {
   return (
@@ -73,6 +74,7 @@ const App = () => {
          <Route path="/my-patients" element={ <MainLayout> <Patients /> </MainLayout>} />
          <Route path="/book-service" element={ <MainLayout> <BookAService /> </MainLayout>} />
          <Route path="/mails-alerts" element={ <MainLayout> <MailsAlerts /> </MainLayout>} />
+         <Route path="/consultation-records" element={ <MainLayout> <ConsultationRecords /> </MainLayout>} />
       </Routes>
     </Router>
   );
