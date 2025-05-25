@@ -131,7 +131,23 @@ const paginatedData = filteredRecords.slice(
       <tr key={record._id}>
          <td>{dayjs(record.date).format('YYYY-MM-DD')}</td>
         <td>{record.patientName},{record.records.join(', ')}</td>
-        <td><button>Accept</button><button>Decline</button></td>
+        <td>
+            <Button
+  type="primary"
+  style={{ backgroundColor: '#22c55e', borderColor: '#22c55e', marginRight: 10 }}
+>
+  Accept
+</Button>
+
+<Button
+  type="primary"
+  danger
+  style={{ backgroundColor: '#ef4444', borderColor: '#ef4444' }}
+>
+  Decline
+</Button>
+
+        </td>
       </tr>
     ))
   ) : (

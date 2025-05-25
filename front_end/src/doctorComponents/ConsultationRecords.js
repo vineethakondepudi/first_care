@@ -85,8 +85,13 @@ const ConsultationRecords = () => {
   width="100%"
   height="500px"
 />
-          <Button type="primary" >Start</Button>
-          <Button type="primary" >End</Button>
+          <Button type="primary" 
+          style={{ backgroundColor: '#34d399', borderColor: '#34d399', marginBottom: 20 }}>Start</Button>
+          <Button
+            type="primary"
+            danger
+            style={{ backgroundColor: '#ef4444', borderColor: '#ef4444', marginBottom: 20 }}
+          >End</Button>
         </Space>
       </div>
         <div style={{ marginBottom: 20 }}>

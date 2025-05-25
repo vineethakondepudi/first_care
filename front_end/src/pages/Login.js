@@ -42,7 +42,7 @@ const Login = () => {
         </Col>
 
         <Col span={12} className="form-section">
-          <Title level={4}>Patient Log In</Title>
+          <Title level={4}>User Log In</Title>
           <Form form={form} layout="vertical" onFinish={handleLogin}>
             <Form.Item
               name="aadhar"

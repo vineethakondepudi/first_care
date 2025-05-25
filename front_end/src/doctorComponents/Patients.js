@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, DatePicker, Space, Pagination } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
+import { FilePdfOutlined } from '@ant-design/icons';
 
 const Patients = () => {
    
@@ -131,7 +132,10 @@ const paginatedData = filteredRecords.slice(
       <tr key={record._id}>
          <td>{record.patientName}</td>
         <td>{record.records.join(', ')}</td>
-        <td>pdf</td>
+       <td>
+  <FilePdfOutlined style={{ color: '#e63946', fontSize: '18px' }} />
+</td>
+
       </tr>
     ))
   ) : (
